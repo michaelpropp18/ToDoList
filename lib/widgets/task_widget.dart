@@ -19,7 +19,9 @@ class TaskWidget extends StatelessWidget {
           Container(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               width: MediaQuery.of(context).size.width - 100,
-              child: Text(task.name, overflow: TextOverflow.ellipsis)),
+              child: Text(task.name,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis)),
           Container(
             height: 50,
             child: FittedBox(

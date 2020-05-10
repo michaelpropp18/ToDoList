@@ -13,10 +13,12 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-      children: taskList.map((t) {
-        return TaskWidget(t, removeTask, upTask, downTask);
-      }).toList(),
+        child: SingleChildScrollView(
+      child: Column(
+        children: taskList.map((t) {
+          return TaskWidget(t, removeTask, upTask, downTask);
+        }).toList(),
+      ),
     ));
   }
 }
