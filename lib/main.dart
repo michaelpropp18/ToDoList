@@ -19,11 +19,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final List<Task> taskList = [];
-  void addTask() {
+  void addTask(String name) {
     setState(() {
       taskList.add(Task(
           id: DateTime.now().toString(),
-          name: 'Task ${taskList.length + 1}',
+          name: name,
           rank: (taskList.length + 1)));
     });
   }
@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
     orderTasks();
   }
 
-  createAlertDialog(BuildContext context) {
+  Future<String> createAlertDialog(BuildContext context) {
     TextEditingController myController = TextEditingController();
 
     return showDialog(
@@ -107,7 +107,9 @@ class _HomeState extends State<Home> {
               MaterialButton(
                 elevation: 5,
                 child: Text('Submit'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pop(myController.text.toString());
+                },
               )
             ]);
       },
@@ -122,7 +124,11 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          createAlertDialog(context);
+          createAlertDialog(context).then((name) {
+            if (name != null) {
+              addTask(name);
+            }
+          });
         },
       ),
     );
