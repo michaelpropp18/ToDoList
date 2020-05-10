@@ -11,25 +11,44 @@ class TaskWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text(task.name),
-        IconButton(
-            icon: Icon(Icons.arrow_upward),
-            onPressed: () {
-              upTask(task.id);
-            }),
-        IconButton(
-            icon: Icon(Icons.arrow_downward),
-            onPressed: () {
-              downTask(task.id);
-            }),
-        IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              removeTask(task.id);
-            }),
-      ],
+    return Card(
+      elevation: 5,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              width: MediaQuery.of(context).size.width - 100,
+              child: Text(task.name, overflow: TextOverflow.ellipsis)),
+          Container(
+            height: 50,
+            child: FittedBox(
+              child: Column(
+                children: <Widget>[
+                  IconButton(
+                      iconSize: 50,
+                      icon: Icon(Icons.arrow_upward),
+                      onPressed: () {
+                        upTask(task.id);
+                      }),
+                  IconButton(
+                      iconSize: 50,
+                      icon: Icon(Icons.arrow_downward),
+                      onPressed: () {
+                        downTask(task.id);
+                      }),
+                ],
+              ),
+            ),
+          ),
+          IconButton(
+              iconSize: 30,
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                removeTask(task.id);
+              }),
+        ],
+      ),
     );
   }
 }

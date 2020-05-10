@@ -125,7 +125,7 @@ class _HomeState extends State<Home> {
         child: Icon(Icons.add),
         onPressed: () {
           createAlertDialog(context).then((name) {
-            if (name != null) {
+            if (name != null && name.length > 0) {
               addTask(name);
             }
           });
