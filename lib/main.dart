@@ -5,12 +5,19 @@ import 'models/task.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(title: 'To-Do List', home: Home());
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final List<Task> taskList = [];
   void addTask() {
     setState(() {
@@ -87,16 +94,37 @@ class _MyAppState extends State<MyApp> {
     orderTasks();
   }
 
+  createAlertDialog(BuildContext context) {
+    TextEditingController myController = TextEditingController();
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+            title: Text('What would you like to do?'),
+            content: TextField(controller: myController),
+            actions: <Widget>[
+              MaterialButton(
+                elevation: 5,
+                child: Text('Submit'),
+                onPressed: () {},
+              )
+            ]);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'To-Do List',
-        home: Scaffold(
-            appBar: AppBar(title: Text('To-Do List')),
-            body: TaskList(taskList, removeTask, upTask, downTask),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: addTask,
-            )));
+    return Scaffold(
+      appBar: AppBar(title: Text('To-Do List')),
+      body: TaskList(taskList, removeTask, upTask, downTask),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          createAlertDialog(context);
+        },
+      ),
+    );
   }
 }
