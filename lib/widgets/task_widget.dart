@@ -3,8 +3,9 @@ import 'package:../to_do/models/task.dart';
 
 class TaskWidget extends StatelessWidget {
   final Task task;
+  final Function removeTask;
 
-  TaskWidget(this.task);
+  TaskWidget(this.task, this.removeTask);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,11 @@ class TaskWidget extends StatelessWidget {
         Text(task.name),
         Icon(Icons.arrow_upward),
         Icon(Icons.arrow_downward),
-        Icon(Icons.delete),
+        IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              removeTask(task.id);
+            }),
       ],
     );
   }
