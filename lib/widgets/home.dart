@@ -11,12 +11,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final List<Task> taskList = [];
+  int rank = 0;
   void addTask(String name) {
     setState(() {
       taskList.add(Task(
           id: DateTime.now().toString(),
           name: name,
-          rank: (taskList.length + 1)));
+          rank: rank++));
     });
   }
 
