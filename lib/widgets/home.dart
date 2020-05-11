@@ -10,94 +10,94 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<Task> taskList = [];
-  int rank = 0;
-  void addTask(String name) {
+  final List<Task> _taskList = [];
+  int _rank = 0;
+  void _addTask(String name) {
     setState(() {
-      taskList.add(Task(
+      _taskList.add(Task(
           id: DateTime.now().toString(),
           name: name,
-          rank: rank++));
+          rank: _rank++));
     });
   }
 
-  void removeTask(String id) {
+  void _removeTask(String id) {
     setState(() {
-      taskList.removeWhere((t) {
+      _taskList.removeWhere((t) {
         return t.id == id;
       });
     });
   }
 
-  void orderTasks() {
+  void _orderTasks() {
     setState(() {
-      taskList.sort((a, b) => a.rank.compareTo(b.rank));
+      _taskList.sort((a, b) => a.rank.compareTo(b.rank));
     });
   }
 
-  void upTask(String id) {
-    Task upTask;
-    Task previousTask;
-    for (Task t in taskList) {
+  void _upTask(String id) {
+    Task _upTask;
+    Task _previousTask;
+    for (Task t in _taskList) {
       if (t.id == id) {
-        upTask = t;
+        _upTask = t;
       }
     }
-    for (Task t in taskList) {
-      if (t.rank < upTask.rank) {
-        if (previousTask == null) {
-          previousTask = t;
-        } else if (t.rank > previousTask.rank) {
-          previousTask = t;
+    for (Task t in _taskList) {
+      if (t.rank < _upTask.rank) {
+        if (_previousTask == null) {
+          _previousTask = t;
+        } else if (t.rank > _previousTask.rank) {
+          _previousTask = t;
         }
       }
     }
-    if (previousTask == null) {
+    if (_previousTask == null) {
       return;
     }
-    int storage = previousTask.rank;
-    previousTask.rank = upTask.rank;
-    upTask.rank = storage;
-    orderTasks();
+    int _storage = _previousTask.rank;
+    _previousTask.rank = _upTask.rank;
+    _upTask.rank = _storage;
+    _orderTasks();
   }
 
-  void downTask(String id) {
-    Task downTask;
-    Task nextTask;
-    for (Task t in taskList) {
+  void _downTask(String id) {
+    Task _downTask;
+    Task _nextTask;
+    for (Task t in _taskList) {
       if (t.id == id) {
-        downTask = t;
+        _downTask = t;
       }
     }
-    for (Task t in taskList) {
-      if (t.rank > downTask.rank) {
-        if (nextTask == null) {
-          nextTask = t;
-        } else if (t.rank < nextTask.rank) {
-          nextTask = t;
+    for (Task t in _taskList) {
+      if (t.rank > _downTask.rank) {
+        if (_nextTask == null) {
+          _nextTask = t;
+        } else if (t.rank < _nextTask.rank) {
+          _nextTask = t;
         }
       }
     }
-    if (nextTask == null) {
+    if (_nextTask == null) {
       return;
     }
-    int storage = nextTask.rank;
-    nextTask.rank = downTask.rank;
-    downTask.rank = storage;
-    orderTasks();
+    int _storage = _nextTask.rank;
+    _nextTask.rank = _downTask.rank;
+    _downTask.rank = _storage;
+    _orderTasks();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('To-Do List')),
-      body: TaskList(taskList, removeTask, upTask, downTask),
+      body: TaskList(_taskList, _removeTask, _upTask, _downTask),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
           createAlertDialog(context).then((name) {
             if (name != null && name.length > 0) {
-              addTask(name);
+              _addTask(name);
             }
           });
         },

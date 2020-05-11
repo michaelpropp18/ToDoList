@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:../to_do/models/task.dart';
 
 class TaskWidget extends StatelessWidget {
-  final Task task;
-  final Function removeTask;
-  final Function upTask;
-  final Function downTask;
+  final Task _task;
+  final Function _removeTask;
+  final Function _upTask;
+  final Function _downTask;
 
-  TaskWidget(this.task, this.removeTask, this.upTask, this.downTask);
+  TaskWidget(this._task, this._removeTask, this._upTask, this._downTask);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class TaskWidget extends StatelessWidget {
           Container(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               width: MediaQuery.of(context).size.width - 100,
-              child: Text(task.name,
+              child: Text(_task.name,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   overflow: TextOverflow.ellipsis)),
           Container(
@@ -31,13 +31,13 @@ class TaskWidget extends StatelessWidget {
                       iconSize: 50,
                       icon: Icon(Icons.arrow_upward),
                       onPressed: () {
-                        upTask(task.id);
+                        _upTask(_task.id);
                       }),
                   IconButton(
                       iconSize: 50,
                       icon: Icon(Icons.arrow_downward),
                       onPressed: () {
-                        downTask(task.id);
+                        _downTask(_task.id);
                       }),
                 ],
               ),
@@ -47,7 +47,7 @@ class TaskWidget extends StatelessWidget {
               iconSize: 30,
               icon: Icon(Icons.delete),
               onPressed: () {
-                removeTask(task.id);
+                _removeTask(_task.id);
               }),
         ],
       ),
